@@ -214,4 +214,13 @@ class RectTriPathFillView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : RectTriPathFillView {
+            val view : RectTriPathFillView = RectTriPathFillView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
