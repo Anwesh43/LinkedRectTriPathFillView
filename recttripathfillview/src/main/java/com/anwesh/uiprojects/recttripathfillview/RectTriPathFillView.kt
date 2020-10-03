@@ -168,4 +168,50 @@ class RectTriPathFillView(ctx : Context) : View(ctx) {
             return this
         }
     }
+
+    data class RectTriPathFill(var i : Int) {
+
+        private var curr : RTPFNode = RTPFNode(0)
+        private var dir : Int = 1
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            curr.draw(canvas, paint)
+        }
+
+        fun update(cb : (Float) -> Unit) {
+            curr.update {
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                cb(it)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : RectTriPathFillView) {
+
+        private val animator : Animator = Animator(view)
+        private val rtpf : RectTriPathFill = RectTriPathFill(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            rtpf.draw(canvas, paint)
+            animator.animate {
+                rtpf.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            rtpf.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
