@@ -213,4 +213,13 @@ class FillPipeRectView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity: Activity) : FillPipeRectView {
+            val view : FillPipeRectView = FillPipeRectView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
