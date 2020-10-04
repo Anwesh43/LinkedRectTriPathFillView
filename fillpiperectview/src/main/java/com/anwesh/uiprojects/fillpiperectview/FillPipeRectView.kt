@@ -39,7 +39,7 @@ fun Canvas.drawFillPipeRect(scale : Float, w : Float, h : Float, paint : Paint) 
     val sf3 : Float = sf.divideScale(2, parts)
     val hSize : Float = h / sizeFactor
     val wSize : Float = w / sizeFactor
-    val y = h / 2 - hSize
+    val y = h  - hSize
     val x = w / 2
     save()
     translate(w / 2, h / 2)
@@ -47,7 +47,7 @@ fun Canvas.drawFillPipeRect(scale : Float, w : Float, h : Float, paint : Paint) 
         save()
         scale(1f - 2 * j, 1f)
         drawRect(RectF(-wSize / 2, -h / 2 + y * sf2, 0f, -h / 2 + y * sf1), paint)
-        drawRect(RectF(-x * sf2, y, -x * sf2 + x * (1 - sf3), h / 2), paint)
+        drawRect(RectF(-x * sf2, h / 2 - hSize, -x * sf3, h / 2), paint)
         restore()
     }
     restore()
